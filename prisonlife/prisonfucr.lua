@@ -5,6 +5,7 @@ game.Players.LocalPlayer:kick("PrisonFuckr: Invalid GameId. TIP: Execute on Pris
 end
 
 local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
 
 local w = library:CreateWindow("PrisonFuckr") -- Creates the window
 
@@ -20,6 +21,34 @@ local b = w:CreateFolder("Movement") -- Creates the folder(U will put here your 
 b:Button("Noclip (E)",function()
     loadstring(game:HttpGet('https://pastebin.com/raw/ihfQUFqf'))()
 end)
+
+local epic2 = false
+b:Toggle("Fling (kinda broken)",function(bool)
+   epic2 = bool
+   if epic2 then
+       power = 250 -- change this to make it more or less powerful
+
+game:GetService('RunService').Stepped:connect(function()
+game.Players.LocalPlayer.Character.Head.CanCollide = false
+game.Players.LocalPlayer.Character.UpperTorso.CanCollide = false
+game.Players.LocalPlayer.Character.LowerTorso.CanCollide = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+end)
+wait(.1)
+local bambam = Instance.new("BodyThrust")
+bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bambam.Force = Vector3.new(power,0,power)
+bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+   else
+   power = 0
+   weld1 = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1123.33093, -479.219147, 2004.61536)
+    wait(6)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(weld1)
+   
+end
+end)
+
 
 b:Slider("WalkSpeed",{
     min = 16; -- min value of the slider
@@ -53,40 +82,24 @@ dofullbright()
 Light.LightingChanged:Connect(dofullbright)
 end)
 
-b:Button("Simple ESP",function()
-local plrs = game:service'Players';
-
-local function epic_esp(model)
-local human = model:WaitForChild('Humanoid',5);
-if human then
-human.HealthDisplayDistance = math.huge;
-human.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn;
-human.NameDisplayDistance = math.huge;
-human.NameOcclusion = Enum.NameOcclusion.NoOcclusion;
-end;
-end;
-
-for _,p in next,plrs:GetPlayers() do
-if p.Character~=nil then epic_esp(p.Character) end;
-p.CharacterAdded:Connect(function(c) epic_esp(c) end);
-end;
-
-plrs.PlayerAdded:Connect(function(p)
-p.CharacterAdded:Connect(function(c) epic_esp(c) end) ;
-end);
+local epic = false
+b:Toggle("ESP",function(bool)
+   epic = bool
+   if epic then
+       ESP:Toggle(true)
+   else
+       ESP:Toggle(false)
+end
 end)
 
 local b = w:CreateFolder("Weapons")
 
-b:Button("Mod All Weapons",function()
+b:Button("Mod Weapons (Broken)",function()
 while wait(1) do
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v:FindFirstChild("GunStates") then
 local a =  require(v.GunStates)
-a.Spread = 0
-a.FireRate = 0
 a.MaxAmmo = math.huge
-a.Damage = math.huge
 a.ReloadTime = 0
 a.Range = math.huge
 a.StoredAmmo = math.huge
@@ -206,7 +219,45 @@ b:Button("Debug Area",function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(881.492249, 27.7899876, 2351.25146)
 end)
 
+local b = w:CreateFolder("Team Changer")
+
+b:Button("Inmate Team",function()
+    Workspace.Remote.TeamEvent:FireServer("Bright orange")
+end)
+
+b:Button("Guard Team",function()
+    Workspace.Remote.TeamEvent:FireServer("Bright blue")
+end)
+
+b:Button("Neutral Team",function()
+    Workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+end)
+
+b:Button("Criminal Team",function()
+    weld02 = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-919.958, 95.327, 2138.189)
+    wait(0.075)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(weld02)
+end)
+
 local b = w:CreateFolder("Misc")
+
+b:Button("Btools",function()
+local tool1 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool2 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool3 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool4 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool5 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+tool1.BinType = "Clone"
+tool2.BinType = "GameTool"
+tool3.BinType = "Hammer"
+tool4.BinType = "Script"
+tool5.BinType = "Grab"
+end)
+
+b:Button("Inf Yeild",function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
 
 b:Button("Remove All Doors",function()
 game.Workspace.Doors.door_v3:Destroy()
